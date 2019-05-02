@@ -1,0 +1,27 @@
+一、主机配置
+1.登录mysql
+2.创建同步用户
+grant user repl identified by '同步密码';
+3.授权
+grant replication slave on *.* to 'repl'@'%' identified by '同步密码';
+4.推出mysql
+5.修改/etc/my.cnf文件
+log-bin=mysql-bin
+server-id=id号
+6.重启mysql
+7.查看master状态信息
+show master status
+二、从机配置
+1.修改/etc/my.cnf文件
+server-id=id号
+relay-log=slave-relay-bin
+relay-log-index=slave-relay-bin.index
+read_only=1
+2.重启mysql
+3.登录mysql
+4.创建同步连接
+change master to master_host='主机ip',master_port=3306,master_user='同步用户',master_password='同步密码',master_log_file='主机对应的文件',master_log_pos=主机对应的位置
+5.执行
+start slave
+6.查看状态
+show slave status\G;

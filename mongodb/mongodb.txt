@@ -1,0 +1,133 @@
+#编辑副本集服务器1
+vim /soft/mongodb/conf/shard1.cfg
+
+pidfilepath=/soft/mongodb/shard1/log/shard1.pid
+dbpath=/soft/mongodb/shard1/data
+logpath=/soft/mongodb/shard1/log/shard1.log
+logappend=true
+bind_ip=0.0.0.0
+port=27001
+fork=true
+replSet=shard1
+shardsvr=true
+maxConns=20000
+
+#启动副本集服务器1
+/soft/mongodb/bin/mongo -f /soft/mongodb/conf/shard1.cfg
+
+#配置副本集服务器1
+mongo --port 27001
+ 
+cfg={_id:"shard1",members:[{_id:0,host:"192.168.225.128:27001"},{_id:1,host:"192.168.225.129:27001"},{_id:2,host:"192.168.225.130:27001",arbiterOnly:true}]}
+ 
+rs.initiate(cfg)
+
+
+#编辑副本集服务器2
+vim /soft/mongodb/conf/shard2.cfg
+
+pidfilepath=/soft/mongodb/shard2/log/shard2.pid
+dbpath=/soft/mongodb/shard2/data
+logpath=/soft/mongodb/shard2/log/shard2.log
+logappend=true
+bind_ip=0.0.0.0
+port=27002
+fork=true
+replSet=shard2
+shardsvr=true
+maxConns=20000
+
+#启动副本集服务器2
+/soft/mongodb/bin/mongo -f /soft/mongodb/conf/shard2.cfg
+
+#配置副本集服务器2
+mongo --port 27002
+ 
+cfg={_id:"shard2",members:[{_id:0,host:"192.168.225.128:27002",arbiterOnly:true},{_id:1,host:"192.168.225.129:27002"},{_id:2,host:"192.168.225.130:27002"}]}
+ 
+rs.initiate(cfg)
+
+
+#编辑副本集服务器3
+vim /soft/mongodb/conf/shard3.cfg
+
+pidfilepath=/soft/mongodb/shard3/log/shard3.pid
+dbpath=/soft/mongodb/shard3/data
+logpath=/soft/mongodb/shard3/log/shard3.log
+logappend=true
+bind_ip=0.0.0.0
+port=27003
+fork=true
+replSet=shard3
+shardsvr=true
+maxConns=20000
+
+#启动副本集服务器3
+/soft/mongodb/bin/mongo -f /soft/mongodb/conf/shard3.cfg
+
+#配置副本集服务器3
+mongo --port 27003
+ 
+cfg={_id:"shard3",members:[{_id:0,host:"192.168.225.128:27003"},{_id:1,host:"192.168.225.129:27003",arbiterOnly:true},{_id:2,host:"192.168.225.130:27003"}]}
+ 
+rs.initiate(cfg)
+
+
+#编辑配置服务器
+vim /soft/mongodb/conf/config.cfg
+ 
+pidfilepath=/soft/mongodb/config/log/configsrv.pid
+dbpath=/soft/mongodb/config/data
+logpath=/soft/mongodb/config/log/congigsrv.log
+logappend=true
+bind_ip=0.0.0.0
+port=21000
+fork=true
+configsvr=true
+replSet=configs
+maxConns=20000
+
+#启动配置服务器
+/soft/mongodb/bin/mongo -f /soft/mongodb/conf/config.cfg
+
+#配置配置服务器
+mongo --port 21000
+
+cfg={_id:"configs",members:[{_id:0,host:"192.168.225.128:21000"},{_id:1,host:"192.168.225.129:21000"},{_id:2,host:"192.168.225.130:21000"}]}
+
+rs.initiate(cfg)
+
+#编辑路由服务器
+vim /soft/mongodb/conf/mongos.cfg
+ 
+pidfilepath=/soft/mongodb/mongos/log/mongos.pid
+logpath=/soft/mongodb/mongos/log/mongos.log
+logappend=true
+bind_ip=0.0.0.0
+port=20000
+fork=true
+configdb=configs/192.168.225.128:21000,192.168.225.129:21000,192.168.225.130:21000
+maxConns=20000
+
+#启动路由服务器
+/soft/mongodb/bin/mongos -f /soft/mongodb/conf/mongos.cfg
+
+#启动分片
+/usr/local/mongodb/bin/mongo --port 20000
+ 
+sh.addShard("shard1/192.168.225.128:27001,192.168.225.129:27001,192.168.225.130:27001")
+sh.addShard("shard2/192.168.225.128:27002,192.168.225.129:27002,192.168.225.130:27002")
+sh.addShard("shard3/192.168.225.128:27003,192.168.225.129:27003,192.168.225.130:27003")
+
+#测试
+/soft/mongodb/bin/mongo 10.201.82.18:20000
+ 
+#使用admin数据库
+use admin
+ 
+#指定test_db分片生效
+db.runCommand( { enablesharding :"test_db"});
+ 
+#指定数据库里需要分片的集合和片键
+db.runCommand( { shardcollection : "test_db.table1",key : {id: "hashed"} } )
+ 

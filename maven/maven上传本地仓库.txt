@@ -1,0 +1,1 @@
+mvn install:install-file -DgroupId=com.yidong -DartifactId=yidong-feign-api -Dversion=0.0.1-SNAPSHOT -Dpackaging=jar -Dfile=c:\work\yidong-feign-api\target\yidong-feign-api-0.0.1-SNAPSHOT.jar

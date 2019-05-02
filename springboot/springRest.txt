@@ -1,0 +1,15 @@
+1.url params
+@PathVarialue
+2.media type
+1)WebMvcConfigurer
+2)WebMvcConfigurationSupport
+com.fasterxml.jackson.dataformat.xml.XmlMapper
+3)导入maven
+<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-xml -->
+<dependency>
+    <groupId>com.fasterxml.jackson.dataformat</groupId>
+    <artifactId>jackson-dataformat-xml</artifactId>
+</dependency>
+4)@RequestMapping
+consumes对应请求头Content-Type
+produces对应请求头Accept

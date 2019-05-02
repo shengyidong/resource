@@ -1,0 +1,21 @@
+#安装缺少的服务
+yum install -y curl openssh-server openssh-clients postfix cronie policycoreutils-python
+start postfix
+enable postfix
+#下载
+wget https://mirrors.tuna.tsinghua.edu.cn/gitlab-ce/yum/el7/gitlab-ce-10.0.0-ce.0.el7.x86_64.rpm
+rpm -ivh gitlab-ce-10.7.2-ce.0.el7.x86_64.rpm 
+#修改文件内容
+vim /etc/gitlab/gitlab.rb
+grep "^external_url" /etc/gitlab/gitlab.rb
+#初始化
+gitlab-ctl reconfigure
+#启动
+gitlab-ctl start
+#发送邮件
+vim /etc/gitlab/gitlab.rb
+grep -P "^[^#].*smtp_|user_email|gitlab_email" /etc/gitlab/gitlab.rb
+gitlab-ctl reconfigure
+gitlab-ctl stop
+gitlab-ctl start
+gitlab-rails console

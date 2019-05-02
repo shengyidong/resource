@@ -1,0 +1,13 @@
+1.更新
+yum update
+2.下载
+wget http://nginx.org/download/nginx-1.13.6.tar.gz
+3.解压
+tar -zvxf nginx-1.13.6.tar.gz
+4.安装配置缺少的环境
+yum install gcc pcre pcre-devel zlib zlib-devel openssl openssl-devel
+5.配置
+./configure --with-http_ssl_module --with-http_gzip_static_module
+6.安装
+make
+make install

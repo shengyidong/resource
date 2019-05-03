@@ -2,7 +2,7 @@ yum -y update
 service iptables status
 yum install -y iptables
 yum update iptables
-yum install iptables-services
+yum install -y iptables-services
 systemctl stop firewalld
 systemctl mask firewalld
 

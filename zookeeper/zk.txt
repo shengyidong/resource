@@ -1,0 +1,20 @@
+#单机环境
+#下载zookeeper
+wget http://mirror.bit.edu.cn/apache/zookeeper/zookeeper-3.4.14/zookeeper-3.4.14.tar.gz
+#解压zookeeper
+tar -zxvf zookeeper-3.4.14.tar.gz
+#复制一份zoo.cfg
+cp zoo_sample.cfg zoo.cfg
+#启动server
+sh zkServer.sh start
+#客户端连接
+sh zkCli.sh -server localhost:2181
+#集群环境
+#修改zoo.cfg
+server.1=192.168.0.103:2181:3181
+server.2=192.168.0.104:2181:3181
+server.3=192.168.0.105:2181:3181
+#创建myid,内容为节点id数字
+/tmp/zookeeper/myid
+#启动zookeeper
+sh zkServer.sh start

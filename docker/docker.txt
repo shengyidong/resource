@@ -14,6 +14,7 @@ docker search tomcat //查询tomcat镜像信息
 docker search -s 30 tomcat
 docker pull tomcat //下载tomcat镜像
 docker rmi tomcat
+docker build -f hellodockerfile -t hello .
 5.容器列表
 docker ps
 docker ps -l

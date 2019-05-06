@@ -1,0 +1,1 @@
+spring redis与spring boot redis请勿直接使用RedisTemplate，可以使用StringRedisTemplate或使用RedisTemplate<String,String>类型

@@ -15,3 +15,5 @@ set password=passwor("密码");
 8.授权
 grant all privileges on *.* to 'root'@'%' identified by '远程登录密码' with grant option;
 
+flush privileges;
+

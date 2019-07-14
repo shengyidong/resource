@@ -1,0 +1,35 @@
+##### 1.获取mysql数据源
+
+wget http://repo.mysql.com/mysql57-community-release-el7-8.noarch.rpm
+
+##### 2.解压
+
+rpm -ivh mysql57-community-release-el7-8.noarch.rpm
+
+##### 3.安装数据库
+
+yum install mysql-server -y
+
+##### 4.启动mysql
+
+systemctl start mysqld
+
+##### 5.查询随机密码
+
+grep "password" /var/log/mysqld.log
+
+##### 6.登录mysql
+
+mysql -uroot -p
+
+##### 7.修改密码
+
+set password=password("密码");
+
+##### 8.授权
+
+grant all privileges on *.* to 'root'@'%' identified by '远程登录密码' with grant option;
+
+##### 9.刷新
+
+flush privileges;

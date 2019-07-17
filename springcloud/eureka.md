@@ -63,5 +63,3 @@ spring.application.name=user-service
 双注册中心互相配置为eureka服务
 
 
-
-

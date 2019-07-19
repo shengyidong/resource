@@ -13,7 +13,7 @@ docker images --no-trunc//完整信息
 docker search tomcat //查询tomcat镜像信息
 docker search -s 30 tomcat
 docker pull tomcat //下载tomcat镜像
-docker rmi tomcat
+docker rmi tomcat //删除镜像
 docker build -f hellodockerfile -t hello .
 5.容器列表
 docker ps
@@ -26,3 +26,4 @@ docker exec -t 容器id
 docker run -d -p8888:8080 镜像id //后台端口映射
 docker commit 容器id 
 docker cp 容器id:容器内文件 路径//复制文件到操作系统
+docker rm 容器id //删除容器

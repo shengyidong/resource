@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
-@FeignClient("user-service")
+@FeignClient(value = "USER-SERVICE")
 public interface UserService {
 
     @GetMapping("/user/list")

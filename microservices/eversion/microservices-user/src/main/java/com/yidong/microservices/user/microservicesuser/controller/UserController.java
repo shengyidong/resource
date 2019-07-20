@@ -1,6 +1,6 @@
 package com.yidong.microservices.user.microservicesuser.controller;
 
-import com.yidong.microservices.user.microservicesuser.vo.UserVO;
+import main.java.com.yidong.microservices.basic.vo.UserVO;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

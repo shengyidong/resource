@@ -1,7 +1,7 @@
 package com.yidong.microservices.order.microservicesorder.controller;
 
 import com.yidong.microservices.order.microservicesorder.service.UserService;
-import com.yidong.microservices.user.microservicesuser.vo.UserVO;
+import main.java.com.yidong.microservices.basic.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

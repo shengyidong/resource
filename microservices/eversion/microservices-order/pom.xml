@@ -21,9 +21,9 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.yidong.microservices.user</groupId>
-			<artifactId>microservices-user</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<groupId>com.yidong.microservices.basic</groupId>
+			<artifactId>microservices-basic</artifactId>
+			<version>1.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

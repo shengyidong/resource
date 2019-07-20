@@ -1,4 +1,4 @@
-package com.yidong.microservices.user.microservicesuser.vo;
+package main.java.com.yidong.microservices.basic.vo;
 
 import java.io.Serializable;
 

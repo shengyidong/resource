@@ -15,6 +15,10 @@ cp -rf target/lib dist
 
 cp -f target/microservices-server-0.0.1-SNAPSHOT.jar dist/lib/microservices-server.jar
 
+tar -zcvf microservices-server.tar.gz dist
+
+cp microservices-server.tar.gz /work/eversion
+
 
 
 

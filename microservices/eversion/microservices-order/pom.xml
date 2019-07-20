@@ -21,7 +21,7 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.yidong.microservices.order</groupId>
+			<groupId>com.yidong.microservices.user</groupId>
 			<artifactId>microservices-user</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>

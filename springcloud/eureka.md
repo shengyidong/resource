@@ -84,3 +84,24 @@ eureka.client.registryFetchIntervalSeconds = 5
 @EnableZuulProxy
 ```
 
+属性文件
+
+```properties
+zuul.routes.user.path=/user/**
+zuul.routes.user.url=http://localhost:10811/user
+```
+
+### config配置
+
+启动类配置
+
+```java
+
+```
+
+属性文件
+
+```properties
+
+```
+

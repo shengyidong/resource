@@ -35,73 +35,26 @@ spring.application.name=user-service
 
 双注册中心互相配置为eureka服务
 
-### ribbon配置
+### eureka主要类
 
-```properties
-#注册时间周期默认30秒
-eureka.client.registryFetchIntervalSeconds = 5
-```
+##### InstanceInfo
 
-### feign配置
+com.netflix.appinfo.InstanceInfo代表服务注册实例类
 
-启动类配置
+##### LeaseInfo
 
-```java
-@EnableFeignClients
-```
+com.netflix.appinfo.LeaseInfo标识应用实例的租约信息
 
-客户端远程接口
+##### ServiceInstance
 
-```java
-@FeignClient
-```
+org.springframework.cloud.client.ServiceInstance是Spring Cloud对服务发现的抽象接口
 
-### hystrix配置
+##### LeaseManager
 
-启动类配置
+com.netflix.eureka.lease.LeaseManager定义了应用服务实例在服务中心操作的接口
 
-```java
-@EnableCircuitBreaker
-```
+##### LookupService
 
-或者使用
+com.netflix.discovery.shared.LookupService Enreka客户端从注册中心获取服务实例的接口
 
-```java
-@SpringCloudApplication
-```
-
-断路器方法类配置
-
-```java
-@HystrixCommand
-```
-
-### zool配置
-
-启动类配置
-
-```java
-@EnableZuulProxy
-```
-
-属性文件
-
-```properties
-zuul.routes.user.path=/user/**
-zuul.routes.user.url=http://localhost:10811/user
-```
-
-### config配置
-
-启动类配置
-
-```java
-
-```
-
-属性文件
-
-```properties
-
-```
-
+### 主要参数

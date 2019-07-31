@@ -58,3 +58,11 @@ com.netflix.eureka.lease.LeaseManager定义了应用服务实例在服务中心�
 com.netflix.discovery.shared.LookupService Enreka客户端从注册中心获取服务实例的接口
 
 ### 主要参数
+
+```properties
+#存活时间间隔默认90秒
+eureka.instance.lease-expiration-duration-in-seconds
+#心跳时间间隔默认30秒
+eureka.instance.lease-renewal-interval-in-seconds
+```
+

@@ -13,4 +13,9 @@ zuul.routes.user.path=/user/**
 zuul.routes.user.url=http://localhost:10811/user
 ```
 
-### 
+饥饿加载
+
+```properties
+zuul.ribbon.eager-load.enabled = true
+```
+

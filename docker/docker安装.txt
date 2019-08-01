@@ -10,3 +10,5 @@ sudo yum makecache fast
 sudo yum install docker-ce -y
 5.启动docker
 systemctl start docker
+6.设置开机自动启动
+systemctl enable docker

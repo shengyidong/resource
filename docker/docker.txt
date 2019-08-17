@@ -32,3 +32,11 @@ docker cp containerId:/usr/local/file1.txt /usr/local //复制文件到操作系
 docker rm containerId //删除容器
 docker rm `docker ps -a -q` //删除所有容器
 docker export //导出容器
+6.数据卷
+docker volume create //创建数据卷
+docker volume rm //删除数据卷
+7.网络
+docker network create //创建网络
+docker network connect networkId containerId //添加容器到网络
+
+

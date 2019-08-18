@@ -38,5 +38,10 @@ docker volume rm //删除数据卷
 7.网络
 docker network create //创建网络
 docker network connect networkId containerId //添加容器到网络
+8.使用ip netns命令操作network namespace
+ip netns add netnsName
+ip netns list
+ip netns delete netnsName
+ip netns exec netnsName command
 
 

@@ -1,0 +1,8 @@
+//创建目录
+mkdir -p /usr/local/mongo/data
+//下载镜像
+docker pull mongo
+//创建容器
+docker run --name mongod-server -d -p 27017:27017 -v /usr/local/mongo/data:/data/db yidong.org/mongo
+//连接容器
+docker run -it yidong.org/mongo mongo --host 172.17.0.2

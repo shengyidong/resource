@@ -1,0 +1,55 @@
+ip netns list //namespace,命名空间
+ip netns add b1 //添加命名空间
+ip netns add b2 
+ip netns list
+ip netns exec b1 ip a //进入命名空间，查看ip地址
+ip netns exec b2 ip a
+ip link //查看网络设备
+ip netns exec b1 ip link set dev lo up //?
+ip link
+ip netns exec b1 ip a
+ip link add veth-b1 type veth peer name veth-b2 //添加设备（成对添加）类型为veth
+ip link
+ip link set veth-b1 netns b1
+ip link
+ip link set veth-b2 netns b2
+ip link
+ip netns exec b1 ip a
+ip netns exec b2 ip a
+ip netns exec b1 ip addr add 192.168.10.1/24 dev veth-b1
+ip netns exec b2 ip addr add 192.168.10.2/24 dev veth-b2
+ip netns exec b1 ip link set dev veth-b1 up
+ip netns exec b2 ip link set dev veth-b2 up
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

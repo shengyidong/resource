@@ -1,0 +1,39 @@
+编辑/etc/hosts文件
+加入rabbitmq1，rabbitmq2，rabbitmq3的ip地址
+第一台主机
+docker run --name rabbitmq1 -d -p 5672:5672 -p 15672:15672 \
+-e RABBITMQ_NODENAME=rabbitmq1 \
+-e RABBITMQ_ERLANG_COOKIE="rabbitmqcookie" \
+-h rabbitmq1 \
+yidong.org/rabbitmq:3.7.7-management
+第二台主机
+docker run --name rabbitmq2 -d -p 5672:5672 -p 15672:15672 \
+-e RABBITMQ_NODENAME=rabbitmq1 \
+-e RABBITMQ_ERLANG_COOKIE="rabbitmqcookie" \
+-h rabbitmq2 \
+yidong.org/rabbitmq:3.7.7-management
+第二台主机
+docker run --name rabbitmq3 -d -p 5672:5672 -p 15672:15672 \
+-e RABBITMQ_NODENAME=rabbitmq1 \
+-e RABBITMQ_ERLANG_COOKIE="rabbitmqcookie" \
+-h rabbitmq3 \
+yidong.org/rabbitmq:3.7.7-management
+创建网络
+docker network create rabbitmqnetwork
+将rabbitmq节点添加到网络
+docker network connect rabbitmqnetwork rabbitmq1
+docker network connect rabbitmqnetwork rabbitmq2
+docker network connect rabbitmqnetwork rabbitmq3
+添加集群
+docker exec -it rabbitmq2 /bin/bash
+rabbitmqctl stop_app
+rabbitmqctl reset
+rabbitmqctl join_cluster --ram rabbitmq1@rabbitmq1
+rabbitmqctl start_app
+
+docker exec -it rabbitmq3 /bin/bash
+rabbitmqctl stop_app
+rabbitmqctl reset
+rabbitmqctl join_cluster --ram rabbitmq1@rabbitmq1
+rabbitmqctl start_app
+

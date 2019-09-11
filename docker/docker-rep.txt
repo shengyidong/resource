@@ -1,0 +1,33 @@
+#镜像加速器配置
+vim /etc/docker/daemon.json
+{
+  "registry-mirrors": ["https://abcd.mirror.aliyuncs.com"]
+}
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+#加密
+mkdir -p /root/certs
+openssl req \
+  -newkey rsa:4096 -nodes -sha256 -keyout /root/certs/yidong.org.key \
+  -x509 -days 365 -out /root/certs/yidong.org.crt
+#生成密码
+mkdir auth
+docker run --rm --entrypoint htpasswd registry -Bbn admin 1qazQAZ > auth/htpasswd
+docker run --rm --entrypoint htpasswd registry -Bbn dnnlyqai 1qazQAZ >> auth/htpasswd
+mkdir -p /etc/docker/certs.d/yidong.org
+cd /etc/docker/certs.d/yidong.org
+cp /root/certs/yidong.org.crt ca.crt //客户端需要的文件
+docker run -d -p 443:443 --restart=always --name registry \
+-v /root/auth:/auth -v /root/certs:/certs \
+-e "REGISTRY_AUTH=htpasswd" \
+-e "REGISTRY_AUTH_HTPASSWD_REALM=Registry Realm" \
+-e REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd \
+-e REGISTRY_HTTP_ADDR=0.0.0.0:443 \
+-e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/yidong.org.crt \
+-e REGISTRY_HTTP_TLS_KEY=/certs/yidong.org.key registry
+#docker-registry-web
+docker run --restart=always -d -p 8080:8080 --name registry-web --link registry:yidong.org \
+-e REGISTRY_URL=https://yidong.org/v2 \
+-e REGISTRY_TRUST_ANY_SSL=true \
+-e REGISTRY_BASIC_AUTH="YWRtaW46MXFhelFBWg==" \
+-e REGISTRY_NAME=yidong.org:443 hyper/docker-registry-web

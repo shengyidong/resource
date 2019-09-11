@@ -1,0 +1,13 @@
+#创建目录
+mkdir -p /usr/local/mysql/conf
+mkdir -p /usr/local/mysql/logs
+mkdir -p /usr/local/mysql/data
+#下载镜像
+docker pull mysql
+#创建容器
+docker run -v /usr/local/mysql/conf:/etc/mysql/conf.d --name mysql -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 yidong.org/mysql
+
+docker exec -it mysql bash
+CREATE USER 'sheng'@'%' IDENTIFIED WITH mysql_native_password BY '12345678';
+GRANT ALL PRIVILEGES ON *.* TO 'sheng'@'%';
+flush privileges;

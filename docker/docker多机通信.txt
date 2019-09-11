@@ -1,0 +1,9 @@
+ip link set ens37 promisc on //开启混杂模式
+docker network create -d macvlan --subnet 172.21.0.0/24 --gateway 172.21.0.1 -o parent=ens37 macvlan1 //添加网络
+docker run -it --name vm137 --network macvlan1 --ip 172.21.0.137 centos //创建容器
+
+ifconfig docker0 172.21.0.1 netmask 255.255.255.0
+systemctl restart docker
+route add -net 172.22.0.0 netmask 255.255.255.0 gw 192.168.65.134
+iptables -t nat -F POSTROUTING
+iptables -t nat -A POSTROUTING -s 172.21.1.0/24 ! -d 172.21.0.0/16 -j MASQUERADE

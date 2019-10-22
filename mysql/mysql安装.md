@@ -14,22 +14,26 @@ yum install mysql-server -y
 
 systemctl start mysqld
 
-##### 5.查询随机密码
+##### 5.开机启动mysql
+
+systemctl enable mysql
+
+##### 6.查询随机密码
 
 grep "password" /var/log/mysqld.log
 
-##### 6.登录mysql
+##### 7.登录mysql
 
 mysql -uroot -p
 
-##### 7.修改密码
+##### 8.修改密码
 
 set password=password("密码");
 
-##### 8.授权
+##### 9.授权
 
 grant all privileges on *.* to 'root'@'%' identified by '远程登录密码' with grant option;
 
-##### 9.刷新
+##### 10.刷新
 
 flush privileges;

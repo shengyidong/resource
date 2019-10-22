@@ -16,7 +16,7 @@ systemctl start mysqld
 
 ##### 5.开机启动mysql
 
-systemctl enable mysql
+systemctl enable mysqld
 
 ##### 6.查询随机密码
 

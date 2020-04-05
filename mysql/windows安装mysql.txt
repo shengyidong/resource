@@ -1,0 +1,20 @@
+1.解压mysqlzip文件
+2.新建文件my.ini文件
+
+[mysqld]
+basedir=mysql路径/
+datadir=mysql路径/data
+
+data目录为空
+3.以管理员身份运行cmd
+右击c:/windows/system32/cmd.exe,选择管理员身份运行
+4.cmd模式进入mysql路径的bin
+5.运行mysqld --initialize
+会产生随机密码在*.err文件中
+6.安装mysql服务，运行mysqld --install mysql5.7
+7.启动mysql服务，运行net start mysql5.7
+8.登录mysql服务，运行mysql -uroot -p
+9.修改随机密码，set password=password("1qaz!QAZ");
+10.grant all privileges on *.* to 'root'@'%' identified by '1qaz!QAZ' with grant option;
+11.flush privileges;
+

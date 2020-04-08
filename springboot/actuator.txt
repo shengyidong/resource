@@ -1,0 +1,4 @@
+#启用spring boot shutdown功能
+management.endpoints.shutdown.enable=true
+management.endpoints.web.exposure.include=shutdown
+curl +X POST http://localhost/actuator/shutdown

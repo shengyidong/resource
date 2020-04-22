@@ -1,3 +1,4 @@
 1.解压nexus-3.9.0-01-unix.tar.gz文件
 2.启动nexus，命令：/usr/locao/nexus-3.9.0-01/bin/nexus run
 3.访问http://192.168.32.135:8081。默认端口8081，默认用户名admin，默认密码admin123
+4.配置文件参考setting.xml与pom.xml

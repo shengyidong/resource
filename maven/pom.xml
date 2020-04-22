@@ -1,0 +1,75 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.utils</groupId>
+	<artifactId>utils</artifactId>
+	<version>1.0.1</version>
+	<name>utils</name>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<fastjson>1.2.58</fastjson>
+		<maven-source-plugin>3.0.0</maven-source-plugin>
+		<mysql-connector-java>5.1.36</mysql-connector-java>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>${fastjson}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql-connector-java}</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>apache-httpclient</groupId>
+		    <artifactId>commons-httpclient</artifactId>
+		    <version>3.0.1</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.dom4j</groupId>
+		    <artifactId>dom4j</artifactId>
+		    <version>2.1.0</version>
+		</dependency>
+		
+	</dependencies>
+
+	<build>
+		<plugins>
+			<!-- source包 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>${maven-source-plugin}</version>
+				<configuration>
+					<attach>true</attach>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<!--上传配置-->
+	<distributionManagement>
+		<repository>
+			<id>nexus</id>
+			<name>nexus Repository</name>
+			<url>http://192.168.100.201:8688/repository/localHosted/</url>
+		</repository>
+	</distributionManagement>
+
+</project>

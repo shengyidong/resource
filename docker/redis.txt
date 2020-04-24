@@ -1,5 +1,5 @@
 #创建目录
-mkdir /usr/local/redis/data
+mkdir -p /usr/local/redis/data
 #拉取镜像
 docker pull redis:3.2
 #运行redis服务器，最后一项是执行的命令

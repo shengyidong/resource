@@ -1,0 +1,39 @@
+1.构建jdk镜像
+
+FROM centos
+
+MAINTAINER dnnlyqai<dnnlyqai@163.com>
+
+ENV MYPATH /usr/local/
+
+WORKDIR $MYPATH
+
+ADD jdk-8u211-linux-x64.tar.gz $MYPATH
+
+ENV JAVA_HOME /usr/local/jdk1.8.0_211
+
+ENV CLASSPATH $JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+
+ENV PATH $PATH:$JAVA_HOME/bin
+
+CMD ["java","-version"] 
+
+2.构建springboot业务镜像
+
+FROM jdk:latest
+
+MAINTAINER dnnlyqai<dnnlyqai@163.com>
+
+ADD docker-test-0.0.1-SNAPSHOT.jar app.jar
+
+EXPOSE 20000
+
+CMD ["java","-jar","app.jar"]
+
+3.脚本部署springboot容器
+
+#!/bin/bash
+docker rm -f dockertestcontainer
+docker rmi dockertestimage
+docker build -f /usr/local/work/dockertest/dockertestdockerfile -t dockertestimage /usr/local/work/dockertest
+docker run -d -p 20000:20000 --name dockertestcontainer dockertestimage

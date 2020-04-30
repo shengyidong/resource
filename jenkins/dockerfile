@@ -1,0 +1,9 @@
+FROM jdk-centos:1.0.0
+
+MAINTAINER dnnlyqai<dnnlyqai@163.com>
+
+ADD jenkins.war jenkins.war
+
+EXPOSE 8080
+
+CMD ["java","-jar","jenkins.war"] 

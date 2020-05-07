@@ -12,25 +12,37 @@ sudo yum-config-manager \
      https://download.docker.com/linux/centos/docker-ce.repo
 ```
 
-##### 3.更新 yum 软件包索引。
+##### 3.设置阿里云镜像加速器。
+
+```linux
+sudo mkdir -p /etc/docker
+sudo tee /etc/docker/daemon.json <<-'EOF'
+{
+  "registry-mirrors": ["阿里云镜像加速地址"]
+}
+EOF
+sudo systemctl daemon-reload
+```
+
+##### 4.更新 yum 软件包索引。
 
 ```linux
 sudo yum makecache fast
 ```
 
-##### 4.安装最新版本的 Docker CE，或者转至下一步以安装特定版本。
+##### 5.安装最新版本的 Docker CE，或者转至下一步以安装特定版本。
 
 ```linux
 sudo yum install docker-ce -y
 ```
 
-##### 5.启动docker
+##### 6.启动docker
 
 ```linux
 systemctl start docker
 ```
 
-##### 6.开机启动docker
+##### 7.开机启动docker
 
 ```
 systemctl enable docker

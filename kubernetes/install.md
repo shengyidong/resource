@@ -1,49 +1,3 @@
-```shell
-setenforce 0
-
-sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
-
-swapoff -a
-
-sed -i '/swap/s/^\(.*\)$/#\1/g' /etc/fstab
-
-iptables -F && iptables -X && iptables -F -t nat && iptables -X -t nat && iptables -P FORWARD ACCEPT
-
-cat <<EOF >  /etc/sysctl.d/k8s.conf
-net.bridge.bridge-nf-call-ip6tables = 1
-net.bridge.bridge-nf-call-iptables = 1
-EOF
-
-sysctl --system
-
-cat <<EOF > /etc/yum.repos.d/kubernetes.repo
-[kubernetes]
-name=Kubernetes
-baseurl=http://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64
-enabled=1
-gpgcheck=0
-repo_gpgcheck=0
-gpgkey=http://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg
-       http://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg
-EOF
-
-yum install -y kubeadm-1.14.0-0 kubelet-1.14.0-0 kubectl-1.14.0-0
-
-sudo tee /etc/docker/daemon.json <<-'EOF'
-{
-  "exec-opts": ["native.cgroupdriver=systemd"],
-  "registry-mirrors": ["a"]
-}
-EOF
-
-systemctl restart docker
-
-sed -i "s/cgroup-driver=systemd/cgroup-driver=cgroupfs/g" /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
-
-systemctl enable kubelet && systemctl start kubelet
-
-```
-
 ##### 更新yum源
 
 ```shell
@@ -105,5 +59,83 @@ systemctl stop firewalld
 
 ```
 systemctl disable firewalld
+```
+
+##### 关闭selinux
+
+```shell
+setenforce 0
+sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
+```
+
+##### 关闭swap
+
+```shell
+swapoff -a
+sed -i '/swap/s/^\(.*\)$/#\1/g' /etc/fstab
+```
+
+##### 配置iptables的ACCEPT规则
+
+```shell
+iptables -F && iptables -X && iptables -F -t nat && iptables -X -t nat && iptables -P FORWARD ACCEPT
+```
+
+##### 设置kubernetes参数
+
+```shell
+cat <<EOF >  /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+EOF
+sysctl --system
+```
+
+##### 配置yum源
+
+```shell
+cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=http://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64
+enabled=1
+gpgcheck=0
+repo_gpgcheck=0
+gpgkey=http://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg
+       http://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg
+EOF
+```
+
+##### 安装kubeadm&kubelet&kubectl
+
+```
+yum install -y kubeadm-1.14.0-0 kubelet-1.14.0-0 kubectl-1.14.0-0
+```
+
+##### 设置docker与kubernetes为同一个cgroup
+
+```shell
+#docker配置
+vi /etc/docker/daemon.json
+#增加如下文本内容
+"exec-opts": ["native.cgroupdriver=systemd"],
+#重启docker
+systemctl restart docker
+#kubernetes配置
+sed -i "s/cgroup-driver=systemd/cgroup-driver=cgroupfs/g" /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+#启动kubernets
+systemctl enable kubelet && systemctl start kubelet
+```
+
+##### 拉取k8s所需的镜像
+
+```shell
+docker pull k8s.gcr.io/kube-apiserver:v1.14.0
+docker pull k8s.gcr.io/kube-controller-manager:v1.14.0
+docker pull k8s.gcr.io/kube-scheduler:v1.14.0
+docker pull k8s.gcr.io/kube-proxy:v1.14.0
+docker pull k8s.gcr.io/pause:3.1
+docker pull k8s.gcr.io/etcd:3.3.10
+docker pull k8s.gcr.io/coredns:1.3.1
 ```
 

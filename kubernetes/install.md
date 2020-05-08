@@ -1,30 +1,4 @@
 ```shell
-yum -y update
-
-yum install -y conntrack ipvsadm ipset jq sysstat curl iptables libseccomp
-
-sudo yum install -y yum-utils \
-    device-mapper-persistent-data \
-    lvm2
-
-sudo yum-config-manager --add-repo http://mirrors.aliyun.com/docker-
-
-ce/linux/centos/docker-ce.repo
-sudo mkdir -p /etc/docker
-sudo tee /etc/docker/daemon.json <<-'EOF'
-{
-  "registry-mirrors": ["a"]
-}
-EOF
-
-sudo systemctl daemon-reload
-
-yum install -y docker-ce-18.09.0 docker-ce-cli-18.09.0 containerd.io
-
-sudo systemctl start docker && sudo systemctl enable docker
-
-systemctl stop firewalld && systemctl disable firewalld
-
 setenforce 0
 
 sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
@@ -68,5 +42,68 @@ sed -i "s/cgroup-driver=systemd/cgroup-driver=cgroupfs/g" /etc/systemd/system/ku
 
 systemctl enable kubelet && systemctl start kubelet
 
+```
+
+##### 更新yum源
+
+```shell
+yum -y update
+```
+
+##### 安装依赖包
+
+```shell
+yum install -y conntrack ipvsadm ipset jq sysstat curl iptables libseccomp
+sudo yum install -y yum-utils \
+    device-mapper-persistent-data \
+    lvm2
+```
+
+##### 设置docker仓库
+
+```shell
+sudo yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+```
+
+##### 设置阿里云镜像加速器
+
+```shell
+sudo mkdir -p /etc/docker
+sudo tee /etc/docker/daemon.json <<-'EOF'
+{
+  "registry-mirrors": ["a"]
+}
+EOF
+sudo systemctl daemon-reload
+```
+
+##### 安装docker
+
+```shell
+yum install -y docker-ce-18.09.0 docker-ce-cli-18.09.0 containerd.io
+```
+
+##### 启动docker
+
+```shell
+systemctl start docker
+```
+
+##### 设置开机启动
+
+```shell
+systemctl enable docker
+```
+
+##### 关闭防火墙
+
+```shell
+systemctl stop firewalld
+```
+
+##### 开机设置防火墙关闭状态
+
+```
+systemctl disable firewalld
 ```
 

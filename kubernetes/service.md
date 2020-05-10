@@ -22,3 +22,15 @@ kubectl describe svc servicerName
 kubectl expose deployment deployName
 ```
 
+##### service的type为clusterIp，集群内部使用
+
+##### service的type为nodePort，映射每台node，生产环境不太常用
+
+##### service的type为LoadBalance，不太常用
+
+##### Ingress
+
+
+
+
+

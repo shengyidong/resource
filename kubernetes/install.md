@@ -1,3 +1,13 @@
+##### 设置master节点与work节点主机名
+
+```shell
+#设置master节点主机名
+sudo hostnamectl set-hostname m
+#设置work节点主机名
+sudo hostnamectl set-hostname w
+#修改host文件
+```
+
 ##### 更新yum源
 
 ```shell
@@ -35,28 +45,16 @@ sudo systemctl daemon-reload
 yum install -y docker-ce-18.09.0 docker-ce-cli-18.09.0 containerd.io
 ```
 
-##### 启动docker
+##### 启动docker并设置开机启动
 
 ```shell
-systemctl start docker
+systemctl start docker && systemctl enable docker
 ```
 
-##### 设置开机启动
+##### 关闭防火墙并设置开机防火墙为关闭状态
 
 ```shell
-systemctl enable docker
-```
-
-##### 关闭防火墙
-
-```shell
-systemctl stop firewalld
-```
-
-##### 开机设置防火墙关闭状态
-
-```
-systemctl disable firewalld
+systemctl stop firewalld && systemctl disable firewalld
 ```
 
 ##### 关闭selinux

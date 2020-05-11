@@ -8,9 +8,7 @@ yum -y update
 
 ```shell
 yum install -y conntrack ipvsadm ipset jq sysstat curl iptables libseccomp
-sudo yum install -y yum-utils \
-    device-mapper-persistent-data \
-    lvm2
+sudo yum install -y yum-utils device-mapper-persistent-data lvm2
 ```
 
 ##### 设置docker仓库

@@ -137,3 +137,35 @@ docker pull k8s.gcr.io/etcd:3.3.10
 docker pull k8s.gcr.io/coredns:1.3.1
 ```
 
+国际网络需要翻墙，也可以从阿里云拉取镜像并改名
+
+```shell
+#登录阿里云镜像仓库（公有仓库可以免登录）
+sudo docker login --username=shengyd2020 registry.cn-beijing.aliyuncs.com
+#输入密码
+#拉取阿里云镜像
+sudo docker pull registry.cn-beijing.aliyuncs.com/shengyd2020/kube-apiserver:v1.14.0
+sudo docker pull registry.cn-beijing.aliyuncs.com/shengyd2020/kube-controller-manager:v1.14.0
+sudo docker pull registry.cn-beijing.aliyuncs.com/shengyd2020/kube-scheduler:v1.14.0
+sudo docker pull registry.cn-beijing.aliyuncs.com/shengyd2020/kube-proxy:v1.14.0
+sudo docker pull registry.cn-beijing.aliyuncs.com/shengyd2020/pause:3.1
+sudo docker pull registry.cn-beijing.aliyuncs.com/shengyd2020/etcd:3.3.10
+sudo docker pull registry.cn-beijing.aliyuncs.com/shengyd2020/coredns:1.3.1
+#修改本地镜像名称为官方名称
+sudo docker tag registry.cn-beijing.aliyuncs.com/shengyd2020/kube-apiserver:v1.14.0 k8s.gcr.io/kube-apiserver:v1.14.0
+sudo docker tag registry.cn-beijing.aliyuncs.com/shengyd2020/kube-controller-manager:v1.14.0 k8s.gcr.io/kube-controller-manager:v1.14.0
+sudo docker tag registry.cn-beijing.aliyuncs.com/shengyd2020/kube-scheduler:v1.14.0 k8s.gcr.io/kube-scheduler:v1.14.0
+sudo docker tag registry.cn-beijing.aliyuncs.com/shengyd2020/kube-proxy:v1.14.0 k8s.gcr.io/kube-proxy:v1.14.0
+sudo docker tag registry.cn-beijing.aliyuncs.com/shengyd2020/pause:3.1 k8s.gcr.io/pause:3.1
+sudo docker tag registry.cn-beijing.aliyuncs.com/shengyd2020/etcd:3.3.10 k8s.gcr.io/etcd:3.3.10
+sudo docker tag registry.cn-beijing.aliyuncs.com/shengyd2020/coredns:1.3.1 k8s.gcr.io/coredns:1.3.1
+#删除本地阿里云镜像
+sudo docker rmi registry.cn-beijing.aliyuncs.com/shengyd2020/kube-apiserver:v1.14.0
+sudo docker rmi registry.cn-beijing.aliyuncs.com/shengyd2020/kube-controller-manager:v1.14.0
+sudo docker rmi registry.cn-beijing.aliyuncs.com/shengyd2020/kube-scheduler:v1.14.0
+sudo docker rmi registry.cn-beijing.aliyuncs.com/shengyd2020/kube-proxy:v1.14.0
+sudo docker rmi registry.cn-beijing.aliyuncs.com/shengyd2020/pause:3.1
+sudo docker rmi registry.cn-beijing.aliyuncs.com/shengyd2020/etcd:3.3.10
+sudo docker rmi registry.cn-beijing.aliyuncs.com/shengyd2020/coredns:1.3.1
+```
+

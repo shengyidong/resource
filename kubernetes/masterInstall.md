@@ -41,6 +41,17 @@ kubectl apply -f calico.yaml
 kubectl get pods --all-namespaces -w
 ```
 
+##### 安装flannel网络插件
 
+###### 下载yaml插件（kube-flannel.yml需要翻墙获取）
 
- 
+```shell
+wget https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+```
+
+###### 根据下载的yaml文件安装插件
+
+```shell
+kubectl apply -f kube-flannel.yaml
+```
+

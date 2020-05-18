@@ -30,10 +30,14 @@ mysql -uroot -p
 
 set password=password("密码");
 
-##### 9.授权
+##### 9.创建用户
 
-grant all privileges on *.* to 'root'@'%' identified by '远程登录密码' with grant option;
+CREATE USER 'sheng'@'%' IDENTIFIED WITH mysql_native_password BY '12345678';
 
-##### 10.刷新
+##### 10.授权
+
+GRANT ALL PRIVILEGES ON *.* TO 'sheng'@'%';
+
+##### 11.刷新
 
 flush privileges;
